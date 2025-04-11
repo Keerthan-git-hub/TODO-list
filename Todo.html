@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>📝 Simple Todo</h1>
+    <input type="text" placeholder="Enter a Text" id="todoInput">
+    <button id="addBtn">Add</button>
+    <div class="todoList"></div>
+    <script>
+        let input=document.getElementById("todoInput");
+        let add_Btn=document.getElementById("addBtn");
+        // let allTaskContainer=document.getElementById("todoList");
+        let taskDiv=document.querySelector(".todoList");
+
+        add_Btn.addEventListener("click",()=>{
+            let task=input.value.trim();
+            if(task===""){
+                return alert("Please enter a task!");
+            }
+            let singleTask=document.createElement("div")
+            singleTask.innerHTML=`
+            <span class="taskText">${task}</span>
+            <button class="editBtn">✏️</button>
+            <button class="delete-Btn">🗑️</button> `;
+
+            taskDiv.append(singleTask)
+
+            let deleteBtn=singleTask.querySelector(".delete-Btn");
+            deleteBtn.addEventListener("click",()=>{
+                let confirmation=confirm("are you sure to delete?")
+                if(confirmation){
+                    singleTask.remove();
+                    alert("deleted successfully!!")
+                }
+            })
+
+            let edit_Btn=singleTask.querySelector(".editBtn");
+            edit_Btn.addEventListener("click",()=>{
+                const span=singleTask.querySelector(".taskText");
+                const newTask=prompt("Edit your task:",span.textContent);
+                if(newTask!==null && newTask.trim()!==""){
+                    span.textContent=newTask.trim();
+                }
+            });
+            // todoList.append(singleTask)
+            input.value="";
+        })
+
+    </script>
+
+</body>
+</html>
+
